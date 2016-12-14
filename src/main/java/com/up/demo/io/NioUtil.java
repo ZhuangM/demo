@@ -6,10 +6,13 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
 public class NioUtil {
-	private static final String FILE_PATH = "files" + File.separator + "test01.txt";
-	
+	private static final String READ_FILE_PATH = "files" + File.separator + "test01.txt";
+	private static final String WRITE_FILE_PATH = "files" + File.separator + "test02.txt";
+
 	public static void main(String[] args) {
-		System.out.println(readFromFile(FILE_PATH));
+		System.out.println(readFromFile(READ_FILE_PATH));
+		String str = "我就是个测试数据。。。";
+		writeToFile(WRITE_FILE_PATH, str);
 	}
 
 	@SuppressWarnings("resource")
@@ -34,5 +37,20 @@ public class NioUtil {
 			e.printStackTrace();
 		}
 		return sb.toString();
+	}
+
+	@SuppressWarnings("resource")
+	public static void writeToFile(String path, String content) {
+		try {
+			RandomAccessFile file = new RandomAccessFile(path, "rw");
+			FileChannel channel = file.getChannel();
+			ByteBuffer buff = ByteBuffer.wrap(content.getBytes("UTF-8"));
+//			buff.flip();
+			while (buff.hasRemaining()) {
+				channel.write(buff);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
