@@ -1,18 +1,19 @@
 package com.up.demo.io;
 
-import java.io.File;
+import static com.up.demo.AppConstants.ENCODING_DEFAULT;
+
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
+import com.up.demo.AppConstants;
+
 public class NioUtil {
-	private static final String READ_FILE_PATH = "files" + File.separator + "test01.txt";
-	private static final String WRITE_FILE_PATH = "files" + File.separator + "test02.txt";
 
 	public static void main(String[] args) {
-		System.out.println(readFromFile(READ_FILE_PATH));
+		System.out.println(readFromFile(AppConstants.READ_FILE_PATH));
 		String str = "我就是个测试数据。。。";
-		writeToFile(WRITE_FILE_PATH, str);
+		writeToFile(AppConstants.WRITE_FILE_PATH, str, true);
 	}
 
 	@SuppressWarnings("resource")
@@ -28,7 +29,7 @@ public class NioUtil {
 				while (buff.hasRemaining()) {
 					byte[] temp = new byte[buff.remaining()];
 					buff.get(temp, 0, buff.remaining()); // 从下标0开始，从缓存中往temp中写入buff.remaining()长度的字节
-					sb.append(new String(temp, "UTF-8"));
+					sb.append(new String(temp, ENCODING_DEFAULT));
 				}
 				buff.clear();
 				bytesRead = channel.read(buff);
@@ -40,12 +41,14 @@ public class NioUtil {
 	}
 
 	@SuppressWarnings("resource")
-	public static void writeToFile(String path, String content) {
+	public static void writeToFile(String path, String content, boolean isAppend) {
 		try {
 			RandomAccessFile file = new RandomAccessFile(path, "rw");
+			if (isAppend) {
+				file.seek(file.length());
+			}
 			FileChannel channel = file.getChannel();
-			ByteBuffer buff = ByteBuffer.wrap(content.getBytes("UTF-8"));
-//			buff.flip();
+			ByteBuffer buff = ByteBuffer.wrap(content.getBytes(ENCODING_DEFAULT));
 			while (buff.hasRemaining()) {
 				channel.write(buff);
 			}

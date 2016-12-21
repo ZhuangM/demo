@@ -1,12 +1,19 @@
 package com.up.demo.algorithm;
 
+import java.util.Random;
+
 public class Sort {
-	private static final int[] PARAM = { 99, 1, 881, 77, 33, 22, 89, 76, 10, 47 };
 
 	public static void main(String[] args) {
-		printArr(PARAM);
-		quickSort(PARAM, 0, PARAM.length - 1);
-		printArr(PARAM);
+		int[] arr = generateArr(50);
+		printArr(arr);
+		long startTime = System.currentTimeMillis();
+		// quickSort(arr, 0, arr.length - 1);
+		// bubbleSort(arr);
+		selectSort(arr);
+		long endTime = System.currentTimeMillis();
+		System.out.println("cost：" + (endTime - startTime) + "ms");
+		printArr(arr);
 	}
 
 	/**
@@ -42,6 +49,44 @@ public class Sort {
 		}
 		arr[startIndex] = key;
 		return startIndex;
+	}
+
+	/**
+	 * 冒泡排序
+	 * 
+	 * @param arr
+	 */
+	public static void bubbleSort(int[] arr) {
+		for (int i = 1; i < arr.length; i++) {
+			for (int j = 0; j < arr.length - i; j++) {
+				if (arr[j] > arr[j + 1]) {
+					swap(arr, j, j + 1);
+				}
+			}
+		}
+	}
+
+	/**
+	 * 选择排序
+	 * 
+	 * @param arr
+	 */
+	public static void selectSort(int[] arr) {
+
+	}
+
+	private static void swap(int[] arr, int i, int j) {
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
+
+	private static int[] generateArr(int count) {
+		int[] arr = new int[count];
+		for (int i = 0; i < count; i++) {
+			arr[i] = new Random().nextInt(9999);
+		}
+		return arr;
 	}
 
 	private static void printArr(int[] arr) {
