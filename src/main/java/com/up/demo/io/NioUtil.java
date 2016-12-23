@@ -1,19 +1,19 @@
 package com.up.demo.io;
 
-import static com.up.demo.AppConstants.ENCODING_DEFAULT;
+import static com.up.demo.Constants.ENCODING_DEFAULT;
 
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
-import com.up.demo.AppConstants;
+import com.up.demo.Constants;
 
 public class NioUtil {
 
 	public static void main(String[] args) {
-		System.out.println(readFromFile(AppConstants.READ_FILE_PATH));
+		System.out.println(readFromFile(Constants.READ_FILE_PATH));
 		String str = "我就是个测试数据。。。";
-		writeToFile(AppConstants.WRITE_FILE_PATH, str, true);
+		writeToFile(Constants.WRITE_FILE_PATH, str, true);
 	}
 
 	@SuppressWarnings("resource")
