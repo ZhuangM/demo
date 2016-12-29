@@ -20,19 +20,23 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
-		
 		<!-- mybatis核心包 -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
 			<version>${mybatis.version}</version>
 		</dependency>
-
 		<!-- 导入Mysql数据库链接jar包 -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.30</version>
+		</dependency>
+		<!-- jetty -->
+		<dependency>
+			<groupId>org.jboss.netty</groupId>
+			<artifactId>netty</artifactId>
+			<version>3.2.9.Final</version>
 		</dependency>
 	</dependencies>
 
