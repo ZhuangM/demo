@@ -1,8 +1,8 @@
-package com.up.demo.spring.service.impl;
+package com.up.demo.spring.autowired.service.impl;
 
 import org.springframework.stereotype.Component;
 
-import com.up.demo.spring.service.IUserService;
+import com.up.demo.spring.autowired.service.IUserService;
 
 @Component("userService")
 public class UserServiceImpl implements IUserService {
